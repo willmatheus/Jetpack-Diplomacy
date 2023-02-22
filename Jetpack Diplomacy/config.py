@@ -13,6 +13,7 @@ wall_width = 25
 screen_width = 1280
 screen_height = 720
 screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("Jetpack-Diplomacy")
 
 # Colors
 RED = (134, 28, 9)
@@ -42,3 +43,7 @@ speed_bullet = 1
 # Menu
 menu_looping = True
 start_img_menu = pygame.image.load('menu1.jpg')
+
+# Menu
+char_looping = False
+char_img_menu = pygame.image.load('menu2.jpg')
