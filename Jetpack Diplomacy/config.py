@@ -44,6 +44,10 @@ speed_bullet = 1
 menu_looping = True
 start_img_menu = pygame.image.load('menu1.jpg')
 
-# Menu
-char_looping = False
-char_img_menu = pygame.image.load('menu2.jpg')
+# Menu char 1
+char_looping_1 = False
+char_left_img_menu = pygame.image.load('left_menu.jpg')
+
+# Menu char 2
+char_looping_2 = False
+char_right_img_menu = pygame.image.load('right_menu.jpg')
