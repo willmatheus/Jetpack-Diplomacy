@@ -6,6 +6,7 @@ class Player:
 
     def move(keys, xp, yp, ang):
         # Move up
+
         if keys[pygame.K_w]:
             xp += math.cos(math.radians(ang))
             yp -= math.sin(math.radians(ang))
@@ -30,3 +31,7 @@ class Player:
         if keys[pygame.K_r]:
             ang += -1
             return xp, yp, ang
+
+        if keys[pygame.K_SEMICOLON]:
+            menu_looping = False
+            return menu_looping
