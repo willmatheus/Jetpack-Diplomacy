@@ -11,6 +11,7 @@ class Game:
         self.char_looping_1 = char_looping_1
         self.select_char = True
         self.char_looping_2 = char_looping_2
+        self.main_loop = main_loop
         self.screen = screen
         self.background = start_img_menu
         self.players_sprites = pygame.sprite.Group()
@@ -18,6 +19,7 @@ class Game:
 
     def get_screen(self):
         screen.blit(self.background, (0, 0))
+
         if self.char_looping_1:
             if self.select_char:
                 pygame.draw.circle(self.screen, WHITE, (255, 190), 20)
@@ -61,6 +63,7 @@ class Game:
                         self.char_looping_1 = False
                         self.char_looping_2 = True
 
+                # Second Player choice char
                 if self.char_looping_2:
                     # Load img
                     self.background = char_right_img_menu
@@ -71,9 +74,14 @@ class Game:
                         self.select_char = not self.select_char
 
                     # Confirm
-                    if event.key == pygame.K_SPACE:
-                        self.char_looping_1 = False
-                        self.char_looping_2 = True
+                    if event.key == pygame.K_0:
+                        self.main_loop = True
+                        self.char_looping_2 = False
+
+                # If in game, Change BG
+                if self.main_loop:
+                    self.background = game_bg
+                    self.get_screen()
 
             if event.type == pygame.QUIT:
                 pygame.quit()

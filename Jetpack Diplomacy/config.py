@@ -34,13 +34,10 @@ clk = pygame.time.Clock()
 # Controls
 keys = pygame.key.get_pressed()
 
-# test scenario
-scenario1 = pygame.image.load("scenario1.jpeg")
-
 # Bullet
 speed_bullet = 1
 
-# Menu
+# Menu start
 menu_looping = True
 start_img_menu = pygame.image.load('menu1.jpg')
 
@@ -51,3 +48,7 @@ char_left_img_menu = pygame.image.load('left_menu.jpg')
 # Menu char 2
 char_looping_2 = False
 char_right_img_menu = pygame.image.load('right_menu.jpg')
+
+# Game
+main_loop = False
+game_bg = pygame.image.load('kremlingame.jpg')
