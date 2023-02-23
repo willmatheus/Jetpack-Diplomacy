@@ -11,6 +11,9 @@ score_height = 50
 wall_width = 25
 screen_width = 1280
 screen_height = 720
+PLATFORM_COLOR = (255, 255, 255)
+PLATFORM_WIDTH = 100
+PLATFORM_HEIGHT = 20
 screen = pygame.display.set_mode((screen_width, screen_height))
 pygame.display.set_caption("Jetpack-Diplomacy")
 
