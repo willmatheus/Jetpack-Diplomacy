@@ -23,6 +23,8 @@ BLUE = (0, 97, 148)
 DARKER_GREEN = (31, 61, 12)
 DARKER_BLUE = (11, 11, 69)
 
+# game
+max_score = 3
 
 # fps
 fps = 60
@@ -34,7 +36,7 @@ clk = pygame.time.Clock()
 keys = pygame.key.get_pressed()
 
 # test scenario
-scenario1 = pygame.image.load("scenario1.jpeg")
+scenario1 = pygame.image.load("kremlingame.jpg")
 
 # Bullet
 speed_bullet = 1
@@ -43,6 +45,13 @@ speed_bullet = 1
 menu_looping = True
 start_img_menu = pygame.image.load('menu1.jpg')
 
-# Menu
-char_looping = False
-char_img_menu = pygame.image.load('menu2.jpg')
+# Menu char 1
+char_looping_1 = False
+char_left_img_menu = pygame.image.load('left_menu.jpg')
+
+# Menu char 2
+char_looping_2 = False
+char_right_img_menu = pygame.image.load('right_menu.jpg')
+
+# gameplay loop
+gameplay_loop = False
