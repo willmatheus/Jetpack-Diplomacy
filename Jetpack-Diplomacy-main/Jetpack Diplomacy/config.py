@@ -62,3 +62,7 @@ ronald = pygame.image.load('assets/RONALD8BIT.png')
 
 # gameplay loop
 gameplay_loop = False
+init_players = True
+xp1 = 50
+yp1 = 50
+ang1 = 0

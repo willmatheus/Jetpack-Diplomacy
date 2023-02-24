@@ -9,23 +9,21 @@ class Player:
         self.ang = ang
         self.sprite = sprite
 
-    def spawn(self):
-        screen.blit(self.sprite, (xp, yp))
+    def draw(self):
+        screen.blit(self.sprite, (self.xp, self.yp))
 
-    def move(keys, xp, yp, ang):
+    def move(self):
         # Move up
-
         if keys[pygame.K_w]:
-            xp += math.cos(math.radians(ang))
-            yp -= math.sin(math.radians(ang))
-            return xp, yp, ang
+            self.xp += math.cos(math.radians(self.ang))
+            self.yp -= math.sin(math.radians(self.ang))
 
         if keys[pygame.K_d]:
-            xp += 1
-            return xp
+            self.xp += 1
+            return self.xp
 
         if keys[pygame.K_a]:
-            xp -= 1
+            self.xp -= 1
             return xp
 
         if keys[pygame.K_q]:
@@ -39,7 +37,3 @@ class Player:
         if keys[pygame.K_r]:
             ang += -1
             return xp, yp, ang
-
-        if keys[pygame.K_SEMICOLON]:
-            menu_looping = False
-            return menu_looping

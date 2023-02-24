@@ -105,5 +105,7 @@ class Game:
                 pygame.draw.circle(self.screen, WHITE, (1080, 180), 20)
 
         elif self.gameplay_loop:
-            screen.blit(self.players[0], (50, 50))
-            screen.blit(self.players[1], (300, 300))
+
+            p1 = Player(self.players[0], xp1, yp1, ang1)
+            p1.draw()
+            p1.move()
