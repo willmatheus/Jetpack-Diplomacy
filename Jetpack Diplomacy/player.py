@@ -8,35 +8,29 @@ class Player:
         self.yp = yp
         self.ang = ang
         self.sprite = sprite
-        #screen.blit(self.sprite, (self.xp, self.yp))
-
-    def draw(self):
-        screen.blit(self.sprite, (self.xp, self.yp))
+        screen.blit(self.sprite, (xp, yp))
 
     def move(self):
-
-
+        x = 0
+        y = 0
         # Move up
-
-        if pygame.key.get_pressed()[pygame.K_w]:
-            print('rola')
-            self.xp += math.cos(math.radians(self.ang))
-            self.yp -= math.sin(math.radians(self.ang))
-        #    return self.xp, self.yp
+        if pygame.key.get_pressed()[pygame.K_LEFT]:
+            x += math.cos(math.radians(self.ang))
+            y -= math.sin(math.radians(self.ang))
 
         if pygame.key.get_pressed()[pygame.K_d]:
-            self.xp += 1
+            x += 1
 
         if pygame.key.get_pressed()[pygame.K_a]:
-            self.xp -= 1
-        #    return self.xp
+            x -= 1
 
         if pygame.key.get_pressed()[pygame.K_q]:
             self.ang += 1
-            #return self.ang
 
         if pygame.key.get_pressed()[pygame.K_e]:
             self.ang += -1
-        #    return self.ang
 
+        self.xp += x
+        self.yp += y
         screen.blit(self.sprite, (self.xp, self.yp))
+        # return xp, yp
