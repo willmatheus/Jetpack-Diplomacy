@@ -1,40 +1,38 @@
 from config import *
 import math
 
+
 class Player:
-    def __init__(self, xp, yp, ang):
+    def __init__(self, sprite, xp, yp, ang):
         self.xp = xp
         self.yp = yp
         self.ang = ang
+        self.sprite = sprite
+        self.sprite = pygame.transform.scale(self.sprite, (200, 200))
+        self.sprite = pygame.transform.rotate(self.sprite, self.ang)
 
-    def move(keys, xp, yp, ang):
+        screen.blit(self.sprite, (xp, yp))
+
+    def move(self):
+        x = 0
+        y = 0
         # Move up
+        if pygame.key.get_pressed()[pygame.K_LEFT]:
+            x += math.cos(math.radians(self.ang))
+            y -= math.sin(math.radians(self.ang))
 
-        if keys[pygame.K_w]:
-            xp += math.cos(math.radians(ang))
-            yp -= math.sin(math.radians(ang))
-            return xp, yp, ang
+        if pygame.key.get_pressed()[pygame.K_d]:
+            x += 1
 
-        if keys[pygame.K_d]:
-            xp += 1
-            return xp
+        if pygame.key.get_pressed()[pygame.K_a]:
+            x -= 1
 
-        if keys[pygame.K_a]:
-            xp -= 1
-            return xp
+        if pygame.key.get_pressed()[pygame.K_q]:
+            self.ang += 1
 
-        if keys[pygame.K_q]:
-            ang += 1
-            return xp, yp, ang
+        if pygame.key.get_pressed()[pygame.K_e]:
+            self.ang += -1
 
-        if keys[pygame.K_e]:
-            ang += -1
-            return xp, yp, ang
-
-        if keys[pygame.K_r]:
-            ang += -1
-            return xp, yp, ang
-
-        if keys[pygame.K_SEMICOLON]:
-            menu_looping = False
-            return menu_looping
+        self.xp += x
+        self.yp += y
+        screen.blit(self.sprite, (self.xp, self.yp))
