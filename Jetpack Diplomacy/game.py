@@ -1,6 +1,7 @@
 import pygame.key
 from player import Player
 from config import *
+from pygame import mixer
 
 
 class Game:
@@ -21,7 +22,6 @@ class Game:
 
     def game_loop(self):
         self.get_screen()
-
         while looping:
             self.get_menu()
             self.draw_sprites()
@@ -30,13 +30,12 @@ class Game:
 
     def get_menu(self):
         clk.tick(60)
-
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 exit()
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_KP_ENTER and self.menu_looping:
+                if event.key == pygame.K_3 and self.menu_looping:
                     self.menu_looping = False
                     self.char_looping_1 = True
 
@@ -57,6 +56,11 @@ class Game:
                         self.char_looping_2 = False
 
                 if self.gameplay_loop:
+                    mixer.music.pause()
+                    mixer.init()
+                    mixer.music.load('song_game.mp3')
+                    mixer.music.set_volume(0.4)
+                    mixer.music.play()
                     self.background = scenario1
 
     def draw_sprites(self):
