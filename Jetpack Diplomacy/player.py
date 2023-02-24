@@ -8,6 +8,9 @@ class Player:
         self.yp = yp
         self.ang = ang
         self.sprite = sprite
+        self.sprite = pygame.transform.scale(self.sprite, (110, 190))
+        self.sprite = pygame.transform.rotate(self.sprite, self.ang)
+
         screen.blit(self.sprite, (xp, yp))
 
     def move(self):
@@ -33,4 +36,3 @@ class Player:
         self.xp += x
         self.yp += y
         screen.blit(self.sprite, (self.xp, self.yp))
-        # return xp, yp

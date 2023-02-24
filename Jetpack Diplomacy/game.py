@@ -113,25 +113,26 @@ class Game:
             p1 = Player(self.players[0], self.xp1, self.yp1, self.ang1)
             p2 = Player(self.players[1], self.xp2, self.yp2, self.ang2)
 
-            if self.yp1 > 10:
-                self.yp1 += 1
+            # Gravity
+            if self.yp1 < 530:
+                self.yp1 += gravity
             else:
-                self.yp1 = self.yp1
+                self.yp1 = 530
 
-            if self.yp2 > 10:
-                self.yp2 += 1
+            if self.yp2 > 530:
+                self.yp2 += gravity
             else:
-                self.yp2 = self.yp1
+                self.yp2 = 530
 
             if pygame.key.get_pressed()[pygame.K_w]:
                 self.xp1 += math.cos(math.radians(self.ang1))
                 self.yp1 -= math.sin(math.radians(self.ang1))
 
             if pygame.key.get_pressed()[pygame.K_d]:
-                self.xp1 += 1
+                self.xp1 += p_speed
 
             if pygame.key.get_pressed()[pygame.K_a]:
-                self.xp1 -= 1
+                self.xp1 -= p_speed
 
             if pygame.key.get_pressed()[pygame.K_q]:
                 self.ang1 += 1
@@ -140,14 +141,14 @@ class Game:
                 self.ang1 += -1
 
             if pygame.key.get_pressed()[pygame.K_UP]:
-                self.xp2 += math.cos(math.radians(self.ang2))
-                self.yp2 -= math.sin(math.radians(self.ang2))
+                self.xp2 += p_speed * math.cos(math.radians(self.ang2))
+                self.yp2 -= p_speed * math.sin(math.radians(self.ang2))
 
             if pygame.key.get_pressed()[pygame.K_RIGHT]:
-                self.xp2 += 1
+                self.xp2 += p_speed
 
             if pygame.key.get_pressed()[pygame.K_LEFT]:
-                self.xp2 -= 1
+                self.xp2 -= p_speed
 
             if pygame.key.get_pressed()[pygame.K_SEMICOLON]:
                 self.ang2 += 1

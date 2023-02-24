@@ -69,3 +69,6 @@ ang1 = 90
 xp2 = 750
 yp2 = 50
 ang2 = 90
+
+p_speed = 6
+gravity = 4
