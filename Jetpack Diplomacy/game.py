@@ -8,6 +8,7 @@ class Game:
     def __init__(self, screen):
         self.screen = screen
         self.select_char = True
+        self.define = True
         self.scenario = scenario1
         self.menu_looping = menu_looping
         self.char_looping_1 = char_looping_1
@@ -81,14 +82,9 @@ class Game:
                         mixer.music.load('assets/song_game.mp3')
                         mixer.music.set_volume(0.4)
                         mixer.music.play()
-                        p1 = Player(self.players[0], xp1, yp1, ang1)
-                        p2 = Player(self.players[1], xp1, yp1, ang1)
 
                 if self.gameplay_loop:
                     self.background = scenario1
-
-                    p1.move()
-
 
     def draw_sprites(self):
         screen.blit(self.background, (0, 0))
@@ -108,7 +104,6 @@ class Game:
                 pygame.draw.circle(self.screen, WHITE, (1080, 180), 20)
 
         elif self.gameplay_loop:
-
             p1 = Player(self.players[0], xp1, yp1, ang1)
-#            p1.draw()
+            # p1.draw()
             p1.move()
