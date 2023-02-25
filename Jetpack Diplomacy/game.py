@@ -36,6 +36,8 @@ class Game(pygame.sprite.Sprite):
     def check_events_game(self):
         if self.gameplay_loop:
             self.players[0].move()
+            self.players[0].shoot_()
+            self.players[0].update()
 
     def get_menu(self):
 
@@ -108,3 +110,6 @@ class Game(pygame.sprite.Sprite):
             # draw char
             self.players[0].draw()
             self.players[1].draw()
+            # draw and update bullets on screen
+            self.players[0].bullet_group.update()
+            self.players[0].bullet_group.draw(self.screen)
