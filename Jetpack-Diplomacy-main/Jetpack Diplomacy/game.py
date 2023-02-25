@@ -3,6 +3,7 @@ from pygame import mixer
 import obstacles
 from config import *
 from player import Player
+import math
 
 
 class Game:
@@ -36,6 +37,11 @@ class Game:
         self.per2_2_right = True
         self.per2_1_vert = True
         self.per2_2_vert = True
+        self.bullet1_x = self.xp1 + 25 * math.cos(math.radians(self.ang1))
+        self.bullet1_y = self.yp1 - 25 * math.sin(math.radians(self.ang1))
+        self.bullet1_dx = math.cos(math.radians(self.ang1))
+        self.bullet1_dy = -math.sin(math.radians(self.ang1))
+        self.shoot1 = False
 
     def get_screen(self):
         self.background = start_img_menu
@@ -123,17 +129,10 @@ class Game:
                 pygame.draw.circle(self.screen, WHITE, (1080, 180), 20)
 
         elif self.gameplay_loop:
-
             obstacles.draw_platform()
+
             p1 = Player(self.players[0], self.xp1, self.yp1, self.ang1)
             p2 = Player(self.players[1], self.xp2, self.yp2, self.ang2)
-            # shoot bullets when r and return are pressed
-            if pygame.key.get_pressed()[pygame.K_r]:
-                p1.shoot()
-            if pygame.key.get_pressed()[pygame.K_RETURN]:
-                p2.shoot()
-            for bullet in p1.bullets + p2.bullets:
-                bullet.move_bullet()
 
             # Gravity
             if self.yp1 < 560 and self.per1_2_vert:
@@ -251,3 +250,19 @@ class Game:
                 self.yp1 -= 15
             if pygame.key.get_pressed()[pygame.K_k] and self.per2_1_vert:
                 self.yp2 -= 15
+
+            if pygame.key.get_pressed()[pygame.K_SEMICOLON]:
+                self.bullet1_x = 25 + self.xp1 + 25 * math.cos(math.radians(self.ang1))
+                self.bullet1_y = 25 + self.yp1 - 25 * math.sin(math.radians(self.ang1))
+                self.shoot1 = True
+                self.bullet1_dx = math.cos(math.radians(self.ang1))
+                self.bullet1_dy = -math.sin(math.radians(self.ang1))
+
+            if self.shoot1:
+                self.bullet1_x += 10 * self.bullet1_dx
+                self.bullet1_y += 10 * self.bullet1_dy
+                
+            else:
+                self.bullet1_x = -5
+                self.bullet1_y = -5
+            bullet1 = pygame.draw.rect(self.screen, WHITE, (self.bullet1_x, self.bullet1_y, 5, 5))
