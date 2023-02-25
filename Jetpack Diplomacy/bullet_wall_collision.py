@@ -4,6 +4,7 @@ import sys
 pygame.init()
 screen = pygame.display.set_mode((1280, 720))
 
+
 class Bullet(pygame.sprite.Sprite):
     def __init__(self, pos, speed):
         super().__init__()
@@ -18,6 +19,7 @@ class Bullet(pygame.sprite.Sprite):
     def collide_with_wall(self, wall_rect):
         if self.rect.colliderect(wall_rect):
             self.kill()  # Remove the bullet from all sprite groups
+
 
 bullet_group = pygame.sprite.Group()
 bullet = Bullet((100, 100), (5, 0))

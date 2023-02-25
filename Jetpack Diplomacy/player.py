@@ -8,7 +8,7 @@ class Player:
         self.yp = yp
         self.ang = ang
         self.sprite = sprite
-        self.sprite = pygame.transform.scale(self.sprite, (110, 190))
+        self.sprite = pygame.transform.scale(self.sprite, (215, 170))
         self.sprite = pygame.transform.rotate(self.sprite, self.ang)
 
         screen.blit(self.sprite, (xp, yp))

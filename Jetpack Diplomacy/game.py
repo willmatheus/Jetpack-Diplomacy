@@ -2,6 +2,7 @@ import pygame.key
 from player import Player
 from config import *
 from pygame import mixer
+import obstacles
 import math
 
 
@@ -93,6 +94,7 @@ class Game:
                     self.background = scenario1
 
     def draw_sprites(self):
+        global p_speed
         screen.blit(self.background, (0, 0))
 
         # draw char picker 1
@@ -110,24 +112,53 @@ class Game:
                 pygame.draw.circle(self.screen, WHITE, (1080, 180), 20)
 
         elif self.gameplay_loop:
+            obstacles.draw_platform()
             p1 = Player(self.players[0], self.xp1, self.yp1, self.ang1)
             p2 = Player(self.players[1], self.xp2, self.yp2, self.ang2)
 
+            if (self.xp1 >= 140 and self.xp1 <= 980) and (self.yp1 >= 524 and self.yp1 < 522):
+                self.yp1 = 524
+
+            if (self.xp2 >= 140 and self.xp2 <= 980) and (self.yp2 >= 524 and self.yp2 < 522):
+                self.yp2 = 524
+
+            if (self.xp1 >= 140 and self.xp1 <= 980) and (self.yp1 <= 244 and self.yp1 < 246):
+                self.yp1 = 224
+
+            if (self.xp2 >= 140 and self.xp2 <= 980) and (self.yp2 <= 224 and self.yp2 < 226):
+                self.yp2 = 224
+
             # Gravity
-            if self.yp1 < 530:
+            if self.yp1 < 560:
                 self.yp1 += gravity
             else:
-                self.yp1 = 530
+                self.yp1 = 560
 
-            if self.yp2 > 530:
+            if self.yp2 < 560:
                 self.yp2 += gravity
             else:
-                self.yp2 = 530
+                self.yp2 = 560
 
-            if pygame.key.get_pressed()[pygame.K_w]:
-                self.xp1 += math.cos(math.radians(self.ang1))
-                self.yp1 -= math.sin(math.radians(self.ang1))
+            # collision with walls
+            if self.xp1 >= 1050:
+                self.xp1 = 1050
 
+            if self.xp1 <= - 20:
+                self.xp1 = - 20
+
+            if self.xp2 >= 1050:
+                self.xp2 = 1050
+
+            if self.xp2 <= - 20:
+                self.xp2 = - 2
+
+            if self.yp1 >= 700:
+                self.yp1 = 700
+
+            if self.yp2 >= 700:
+                self.yp2 = 700
+
+            # movement
             if pygame.key.get_pressed()[pygame.K_d]:
                 self.xp1 += p_speed
 
@@ -140,18 +171,20 @@ class Game:
             if pygame.key.get_pressed()[pygame.K_e]:
                 self.ang1 += -1
 
-            if pygame.key.get_pressed()[pygame.K_UP]:
-                self.xp2 += p_speed * math.cos(math.radians(self.ang2))
-                self.yp2 -= p_speed * math.sin(math.radians(self.ang2))
-
             if pygame.key.get_pressed()[pygame.K_RIGHT]:
                 self.xp2 += p_speed
 
             if pygame.key.get_pressed()[pygame.K_LEFT]:
                 self.xp2 -= p_speed
 
-            if pygame.key.get_pressed()[pygame.K_SEMICOLON]:
+            if pygame.key.get_pressed()[pygame.K_8]:
                 self.ang2 += 1
 
             if pygame.key.get_pressed()[pygame.K_9]:
                 self.ang2 += -1
+
+            # jetpack
+            if pygame.key.get_pressed()[pygame.K_SPACE]:
+                self.yp1 -= 15
+            if pygame.key.get_pressed()[pygame.K_k]:
+                self.yp2 -= 15

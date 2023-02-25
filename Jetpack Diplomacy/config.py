@@ -65,10 +65,10 @@ gameplay_loop = False
 init_players = True
 xp1 = 50
 yp1 = 50
-ang1 = 90
-xp2 = 750
+ang1 = 0
+xp2 = 1000
 yp2 = 50
-ang2 = 90
-
-p_speed = 6
+ang2 = 0
+p_speed = 7
 gravity = 4
+wall_rect = pygame.Rect(0, 0, 1280, 720)
