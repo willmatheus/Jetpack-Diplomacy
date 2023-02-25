@@ -9,7 +9,7 @@ class Player:
         self.yp = yp
         self.ang = ang
         self.sprite = sprite
-        self.sprite = pygame.transform.scale(self.sprite, (215, 170))
+        self.sprite = pygame.transform.scale(self.sprite, (200, 170))
         self.sprite = pygame.transform.rotate(self.sprite, self.ang)
         self.bullets = []  # list of bullets shot by this player
         self.bullet_speed = 5  # set bullet speed

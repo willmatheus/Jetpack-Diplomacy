@@ -1,10 +1,8 @@
 import pygame.key
-from player import Player
-from config import *
 from pygame import mixer
 import obstacles
-import bullet
-import math
+from config import *
+from player import Player
 
 
 class Game:
@@ -113,28 +111,17 @@ class Game:
                 pygame.draw.circle(self.screen, WHITE, (1080, 180), 20)
 
         elif self.gameplay_loop:
+
             obstacles.draw_platform()
             p1 = Player(self.players[0], self.xp1, self.yp1, self.ang1)
             p2 = Player(self.players[1], self.xp2, self.yp2, self.ang2)
-            # shoot bullets when space bar is pressed
+            # shoot bullets when r and return are pressed
             if pygame.key.get_pressed()[pygame.K_r]:
                 p1.shoot()
             if pygame.key.get_pressed()[pygame.K_RETURN]:
                 p2.shoot()
             for bullet in p1.bullets + p2.bullets:
                 bullet.move_bullet()
-
-            if (self.xp1 >= 140 and self.xp1 <= 980) and (self.yp1 >= 524 and self.yp1 < 522):
-                self.yp1 = 524
-
-            if (self.xp2 >= 140 and self.xp2 <= 980) and (self.yp2 >= 524 and self.yp2 < 522):
-                self.yp2 = 524
-
-            if (self.xp1 >= 140 and self.xp1 <= 980) and (self.yp1 <= 244 and self.yp1 < 246):
-                self.yp1 = 224
-
-            if (self.xp2 >= 140 and self.xp2 <= 980) and (self.yp2 <= 224 and self.yp2 < 226):
-                self.yp2 = 224
 
             # Gravity
             if self.yp1 < 560:
@@ -148,8 +135,8 @@ class Game:
                 self.yp2 = 560
 
             # collision with walls
-            if self.xp1 >= 1050:
-                self.xp1 = 1050
+            if self.xp1 >= 1070:
+                self.xp1 = 1070
 
             if self.xp1 <= - 20:
                 self.xp1 = - 20
@@ -158,13 +145,13 @@ class Game:
                 self.xp2 = 1050
 
             if self.xp2 <= - 20:
-                self.xp2 = - 2
+                self.xp2 = - 20
 
-            if self.yp1 >= 700:
-                self.yp1 = 700
+            if self.yp1 <= 0:
+                self.yp1 = 0
 
-            if self.yp2 >= 700:
-                self.yp2 = 700
+            if self.yp2 <= 0:
+                self.yp2 = 0
 
             # movement
             if pygame.key.get_pressed()[pygame.K_d]:

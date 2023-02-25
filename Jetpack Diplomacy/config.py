@@ -51,7 +51,7 @@ start_img_menu = pygame.image.load('assets/menu1.jpg')
 # Menu char 1
 char_looping_1 = False
 char_left_img_menu = pygame.image.load('assets/left_menu.jpg')
-lenin = pygame.image.load('assets/LENIN8BIT.png')
+lenin = pygame.image.load('assets/LENIN8BITVIRADO.png')
 stalin = pygame.image.load('assets/STALIN8BIT.png')
 
 # Menu char 2
@@ -72,3 +72,7 @@ ang2 = 0
 p_speed = 7
 gravity = 4
 wall_rect = pygame.Rect(0, 0, 1280, 720)
+lenin_rect = lenin.get_rect()
+stalin_rect = stalin.get_rect()
+jfk_rect = jfk.get_rect()
+ronald_rect = ronald.get_rect()

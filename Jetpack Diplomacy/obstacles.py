@@ -19,17 +19,11 @@ class Platform(pygame.sprite.Sprite):
 clock = pygame.time.Clock()
 
 # Create the floor and two platforms
-floor = Platform(PLATFORM_COLOR, screen_width, PLATFORM_HEIGHT, 0, - PLATFORM_HEIGHT)
-
-platform1 = Platform(PLATFORM_COLOR, 680, 24, 300,
-                     screen_height - PLATFORM_HEIGHT - 480)
-
-platform2 = Platform(PLATFORM_COLOR, 680, 24, 300,
-                     screen_height - PLATFORM_HEIGHT - 300)
-
+platform1 = Platform(WHITE, 20, 320, 300, 0)
+platform2 = Platform(WHITE, 20, 320, 900, 420)
 # Create a group to hold the platforms
 platform_group = pygame.sprite.Group()
-platform_group.add(floor, platform1, platform2)
+platform_group.add(platform1, platform2)
 
 
 # Draw the platforms on the screen
