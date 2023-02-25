@@ -38,7 +38,10 @@ clk = pygame.time.Clock()
 # Controls
 keys = pygame.key.get_pressed()
 
-# test scenario
+# sprite bullet
+bullet = pygame.image.load("sprites/testeball.png")
+
+# scenario
 scenario1 = pygame.image.load("assets/kremlingame.jpg")
 
 # Bullet
@@ -51,24 +54,22 @@ start_img_menu = pygame.image.load('assets/menu1.jpg')
 # Menu char 1
 char_looping_1 = False
 char_left_img_menu = pygame.image.load('assets/left_menu.jpg')
-lenin = pygame.image.load('assets/LENIN8BIT.png')
-stalin = pygame.image.load('assets/STALIN8BIT.png')
+lenin = pygame.image.load('sprites/1.png')
+stalin = pygame.image.load('sprites/2.png')
 
 # Menu char 2
 char_looping_2 = False
 char_right_img_menu = pygame.image.load('assets/right_menu.jpg')
-jfk = pygame.image.load('assets/JFK8BIT.png')
-ronald = pygame.image.load('assets/RONALD8BIT.png')
+jfk = pygame.image.load('sprites/3.png')
+ronald = pygame.image.load('sprites/4.png')
 
 # gameplay loop
 gameplay_loop = False
 init_players = True
 xp1 = 50
-yp1 = 50
+yp1 = 520
 ang1 = 0
-xp2 = 1000
-yp2 = 50
+xp2 = 750
+yp2 = 520
 ang2 = 0
-p_speed = 7
-gravity = 4
-wall_rect = pygame.Rect(0, 0, 1280, 720)
+speed = 10

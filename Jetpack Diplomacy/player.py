@@ -1,48 +1,32 @@
+import pygame.sprite
+
 from config import *
-import math
-from bullet import Bullet
 
 
-class Player:
-    def __init__(self, sprite, xp, yp, ang):
+class Player(pygame.sprite.Sprite):
+    def __init__(self, xp, yp, sprite):
+        super().__init__()
         self.xp = xp
         self.yp = yp
-        self.ang = ang
         self.sprite = sprite
-        self.sprite = pygame.transform.scale(self.sprite, (215, 170))
-        self.sprite = pygame.transform.rotate(self.sprite, self.ang)
-        self.bullets = []  # list of bullets shot by this player
-        self.bullet_speed = 5  # set bullet speed
-        screen.blit(self.sprite, (xp, yp))
+        self.direction = 1
+        self.flip = False
+        self.bullet_Sprites = pygame.sprite.Group()
+        self.img = pygame.transform.scale(self.sprite, (200, 200))
+        self.rect = self.img.get_rect()
+        self.rect.center = (xp, yp)
 
-    def shoot(self):
-        # Create a new bullet object and add it to the bullets list
-        bullet_x = self.xp + math.cos(math.radians(self.ang)) * 80
-        bullet_y = self.yp - math.sin(math.radians(self.ang)) * 80
-        bullet = Bullet(bullet_x, bullet_y, self.ang)
-        self.bullets.append(bullet)
+    def draw(self):
+        screen.blit(pygame.transform.flip(self.img, self.flip, False), self.rect)
 
     def move(self):
-        x = 0
-        y = 0
-        # Move up
-        if pygame.key.get_pressed()[pygame.K_LEFT]:
-            x += math.cos(math.radians(self.ang))
-            y -= math.sin(math.radians(self.ang))
+        key = pygame.key.get_pressed()
 
-        if pygame.key.get_pressed()[pygame.K_d]:
-            x += 1
-
-        if pygame.key.get_pressed()[pygame.K_a]:
-            x -= 1
-
-        if pygame.key.get_pressed()[pygame.K_q]:
-            self.ang += 1
-
-        if pygame.key.get_pressed()[pygame.K_e]:
-            self.ang += -1
-
-        self.xp += x
-        self.yp += y
-        self.sprite = pygame.transform.rotate(self.sprite, self.ang)
-        screen.blit(self.sprite, (self.xp, self.yp))
+        if key[pygame.K_a]:
+            self.rect.x += -speed
+            self.flip = True
+            self.direction = -1
+        if key[pygame.K_d]:
+            self.rect.x += speed
+            self.flip = False
+            self.direction = 1

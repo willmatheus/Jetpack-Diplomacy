@@ -2,30 +2,19 @@ import pygame.key
 from player import Player
 from config import *
 from pygame import mixer
-import obstacles
-import bullet
-import math
 
 
-class Game:
-    def __init__(self, screen):
-        self.screen = screen
+class Game(pygame.sprite.Sprite):
+    def __init__(self, screen_game):
+        super().__init__()
+        self.screen = screen_game
+        self.gameplay_loop = gameplay_loop
         self.select_char = True
-        self.define = True
-        self.scenario = scenario1
         self.menu_looping = menu_looping
         self.char_looping_1 = char_looping_1
         self.char_looping_2 = char_looping_2
-        self.gameplay_loop = gameplay_loop
         self.background = start_img_menu
-        self.players_sprites = pygame.sprite.Group()
         self.players = []
-        self.xp1 = xp1
-        self.yp1 = yp1
-        self.ang1 = ang1
-        self.xp2 = xp2
-        self.yp2 = yp2
-        self.ang2 = ang2
 
     def get_screen(self):
         self.background = start_img_menu
@@ -34,13 +23,21 @@ class Game:
         self.get_screen()
         while looping:
             self.get_menu()
+            self.check_events_game()
             self.draw_sprites()
+
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    exit()
             pygame.display.update()
             clk.tick(fps)
 
-    def get_menu(self):
+    def check_events_game(self):
+        if self.gameplay_loop:
+            self.players[0].move()
 
-        clk.tick(60)
+    def get_menu(self):
 
         for event in pygame.event.get():
 
@@ -58,18 +55,15 @@ class Game:
                 if self.char_looping_1:
                     self.background = char_left_img_menu
                     if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-
                         self.select_char = not self.select_char
-
                     # Confirm P1
                     if event.key == pygame.K_SPACE:
                         self.char_looping_1 = False
                         self.char_looping_2 = True
-
                         if self.select_char:
-                            self.players.append(lenin)
+                            self.players.append(Player(xp1, yp1, lenin))
                         else:
-                            self.players.append(stalin)
+                            self.players.append(Player(xp1, yp1, stalin))
 
                 # Choice p2
                 if self.char_looping_2:
@@ -82,20 +76,18 @@ class Game:
                         self.gameplay_loop = True
                         self.char_looping_2 = False
                         if self.select_char:
-                            self.players.append(jfk)
+                            self.players.append(Player(xp2, yp2, jfk))
                         else:
-                            self.players.append(ronald)
+                            self.players.append(Player(xp2, yp2, ronald))
+
+                        self.background = scenario1
                         mixer.music.pause()
                         mixer.init()
                         mixer.music.load('assets/song_game.mp3')
                         mixer.music.set_volume(0.4)
                         mixer.music.play()
 
-                if self.gameplay_loop:
-                    self.background = scenario1
-
     def draw_sprites(self):
-        global p_speed
         screen.blit(self.background, (0, 0))
 
         # draw char picker 1
@@ -113,86 +105,6 @@ class Game:
                 pygame.draw.circle(self.screen, WHITE, (1080, 180), 20)
 
         elif self.gameplay_loop:
-            obstacles.draw_platform()
-            p1 = Player(self.players[0], self.xp1, self.yp1, self.ang1)
-            p2 = Player(self.players[1], self.xp2, self.yp2, self.ang2)
-            # shoot bullets when space bar is pressed
-            if pygame.key.get_pressed()[pygame.K_r]:
-                p1.shoot()
-            if pygame.key.get_pressed()[pygame.K_RETURN]:
-                p2.shoot()
-            for bullet in p1.bullets + p2.bullets:
-                bullet.move_bullet()
-
-            if (self.xp1 >= 140 and self.xp1 <= 980) and (self.yp1 >= 524 and self.yp1 < 522):
-                self.yp1 = 524
-
-            if (self.xp2 >= 140 and self.xp2 <= 980) and (self.yp2 >= 524 and self.yp2 < 522):
-                self.yp2 = 524
-
-            if (self.xp1 >= 140 and self.xp1 <= 980) and (self.yp1 <= 244 and self.yp1 < 246):
-                self.yp1 = 224
-
-            if (self.xp2 >= 140 and self.xp2 <= 980) and (self.yp2 <= 224 and self.yp2 < 226):
-                self.yp2 = 224
-
-            # Gravity
-            if self.yp1 < 560:
-                self.yp1 += gravity
-            else:
-                self.yp1 = 560
-
-            if self.yp2 < 560:
-                self.yp2 += gravity
-            else:
-                self.yp2 = 560
-
-            # collision with walls
-            if self.xp1 >= 1050:
-                self.xp1 = 1050
-
-            if self.xp1 <= - 20:
-                self.xp1 = - 20
-
-            if self.xp2 >= 1050:
-                self.xp2 = 1050
-
-            if self.xp2 <= - 20:
-                self.xp2 = - 2
-
-            if self.yp1 >= 700:
-                self.yp1 = 700
-
-            if self.yp2 >= 700:
-                self.yp2 = 700
-
-            # movement
-            if pygame.key.get_pressed()[pygame.K_d]:
-                self.xp1 += p_speed
-
-            if pygame.key.get_pressed()[pygame.K_a]:
-                self.xp1 -= p_speed
-
-            if pygame.key.get_pressed()[pygame.K_q]:
-                self.ang1 += 1
-
-            if pygame.key.get_pressed()[pygame.K_e]:
-                self.ang1 += -1
-
-            if pygame.key.get_pressed()[pygame.K_RIGHT]:
-                self.xp2 += p_speed
-
-            if pygame.key.get_pressed()[pygame.K_LEFT]:
-                self.xp2 -= p_speed
-
-            if pygame.key.get_pressed()[pygame.K_8]:
-                self.ang2 += 1
-
-            if pygame.key.get_pressed()[pygame.K_9]:
-                self.ang2 += -1
-
-            # jetpack
-            if pygame.key.get_pressed()[pygame.K_SPACE]:
-                self.yp1 -= 15
-            if pygame.key.get_pressed()[pygame.K_k]:
-                self.yp2 -= 15
+            # draw char
+            self.players[0].draw()
+            self.players[1].draw()

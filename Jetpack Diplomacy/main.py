@@ -1,12 +1,8 @@
 from config import *
-from game import *
-from pygame import mixer
+from game import Game
 
-mixer.init()
-mixer.music.load('assets/ussr_anthem.mp3')
-mixer.music.set_volume(0.3)
 pygame.init()
-mixer.music.play()
-
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("Jetpack-Diplomacy")
 play = Game(screen)
 play.game_loop()
