@@ -164,6 +164,7 @@ class Game:
             if self.yp2 <= 0:
                 self.yp2 = 0
 
+            # Collision 1
             if (self.xp1 >= 162 and self.xp1 <= 180) and (self.yp1 >= 0 and self.yp1 <= 320):
                 self.per1_1_left = False
             else:
@@ -188,12 +189,30 @@ class Game:
                 self.per1_1_vert = False
             else:
                 self.per1_1_vert = True
-
             if (self.xp1 >= 770 and self.xp1 <= 880) and (self.yp1 >= 245 and self.yp1 <= 275):
                 self.per1_2_vert = False
             else:
                 self.per1_2_vert = True
 
+            # Ball Collision 1
+            if (self.bullet1_x >= 300 and self.bullet1_x <= 320) and (self.bullet1_y >= 0 and self.bullet1_y <= 320):
+                self.bullet1_x = -500
+                self.bullet1_y = -500
+
+            if (self.bullet1_x >= 900 and self.bullet1_x <= 920) and (self.bullet1_y >= 250 and self.bullet1_y <= 720):
+                self.bullet1_x = -500
+                self.bullet1_y = -500
+
+            if (self.bullet2_x >= 300 and self.bullet2_x <= 320) and (self.bullet2_y >= 0 and self.bullet2_y <= 320):
+                self.bullet2_x = -500
+                self.bullet2_y = -500
+
+            if (self.bullet2_x >= 900 and self.bullet2_x <= 920) and (self.bullet2_y >= 250 and self.bullet2_y <= 720):
+                self.bullet2_x = -500
+                self.bullet2_y = -500
+
+
+            # Collision 2
             if (self.xp2 >= 162 and self.xp2 <= 180) and (self.yp2 >= 0 and self.yp2 <= 320):
                 self.per2_1_left = False
             else:
