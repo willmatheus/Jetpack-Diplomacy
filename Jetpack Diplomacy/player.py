@@ -1,5 +1,6 @@
 from config import *
 import math
+from bullet import Bullet
 
 
 class Player:
@@ -8,10 +9,18 @@ class Player:
         self.yp = yp
         self.ang = ang
         self.sprite = sprite
-        self.sprite = pygame.transform.scale(self.sprite, (250, 200))
+        self.sprite = pygame.transform.scale(self.sprite, (215, 170))
         self.sprite = pygame.transform.rotate(self.sprite, self.ang)
-
+        self.bullets = []  # list of bullets shot by this player
+        self.bullet_speed = 5  # set bullet speed
         screen.blit(self.sprite, (xp, yp))
+
+    def shoot(self):
+        # Create a new bullet object and add it to the bullets list
+        bullet_x = self.xp + math.cos(math.radians(self.ang)) * 80
+        bullet_y = self.yp - math.sin(math.radians(self.ang)) * 80
+        bullet = Bullet(bullet_x, bullet_y, self.ang)
+        self.bullets.append(bullet)
 
     def move(self):
         x = 0
@@ -35,4 +44,5 @@ class Player:
 
         self.xp += x
         self.yp += y
+        self.sprite = pygame.transform.rotate(self.sprite, self.ang)
         screen.blit(self.sprite, (self.xp, self.yp))
