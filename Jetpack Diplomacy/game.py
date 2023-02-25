@@ -93,6 +93,7 @@ class Game:
                     self.background = scenario1
 
     def draw_sprites(self):
+        global p_speed
         screen.blit(self.background, (0, 0))
 
         # draw char picker 1
@@ -124,10 +125,26 @@ class Game:
             else:
                 self.yp2 = 530
 
-            if pygame.key.get_pressed()[pygame.K_w]:
-                self.xp1 += math.cos(math.radians(self.ang1))
-                self.yp1 -= math.sin(math.radians(self.ang1))
+            # collision with walls
+            if self.xp1 >= 1050:
+                self.xp1 = 1050
 
+            if self.xp1 <= - 20:
+                self.xp1 = - 20
+
+            if self.xp2 >= 1050:
+                self.xp2 = 1050
+
+            if self.xp2 <= - 20:
+                self.xp2 = - 2
+
+            if self.yp1 >= 700:
+                self.yp1 = 700
+
+            if self.yp2 >= 700:
+                self.yp2 = 700
+
+            # movement
             if pygame.key.get_pressed()[pygame.K_d]:
                 self.xp1 += p_speed
 
@@ -140,10 +157,6 @@ class Game:
             if pygame.key.get_pressed()[pygame.K_e]:
                 self.ang1 += -1
 
-            if pygame.key.get_pressed()[pygame.K_UP]:
-                self.xp2 += p_speed * math.cos(math.radians(self.ang2))
-                self.yp2 -= p_speed * math.sin(math.radians(self.ang2))
-
             if pygame.key.get_pressed()[pygame.K_RIGHT]:
                 self.xp2 += p_speed
 
@@ -155,3 +168,8 @@ class Game:
 
             if pygame.key.get_pressed()[pygame.K_9]:
                 self.ang2 += -1
+            # jetpack
+            if pygame.key.get_pressed()[pygame.K_SPACE]:
+                self.yp1 -= 15
+            if pygame.key.get_pressed()[pygame.K_k]:
+                self.yp2 -= 15
