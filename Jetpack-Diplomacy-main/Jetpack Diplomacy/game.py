@@ -42,6 +42,11 @@ class Game:
         self.bullet1_dx = math.cos(math.radians(self.ang1))
         self.bullet1_dy = -math.sin(math.radians(self.ang1))
         self.shoot1 = False
+        self.bullet2_x = self.xp1 + 25 * math.cos(math.radians(self.ang1))
+        self.bullet2_y = self.yp1 - 25 * math.sin(math.radians(self.ang1))
+        self.bullet2_dx = math.cos(math.radians(self.ang1))
+        self.bullet2_dy = -math.sin(math.radians(self.ang1))
+        self.shoot2 = False
 
     def get_screen(self):
         self.background = start_img_menu
@@ -74,7 +79,6 @@ class Game:
                 if self.char_looping_1:
                     self.background = char_left_img_menu
                     if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-
                         self.select_char = not self.select_char
 
                     # Confirm P1
@@ -246,12 +250,12 @@ class Game:
                 self.ang2 += -1
 
             # jetpack
-            if pygame.key.get_pressed()[pygame.K_SPACE] and self.per1_1_vert:
+            if pygame.key.get_pressed()[pygame.K_w] and self.per1_1_vert:
                 self.yp1 -= 15
-            if pygame.key.get_pressed()[pygame.K_k] and self.per2_1_vert:
+            if pygame.key.get_pressed()[pygame.K_UP] and self.per2_1_vert:
                 self.yp2 -= 15
 
-            if pygame.key.get_pressed()[pygame.K_SEMICOLON]:
+            if pygame.key.get_pressed()[pygame.K_r]:
                 self.bullet1_x = 25 + self.xp1 + 25 * math.cos(math.radians(self.ang1))
                 self.bullet1_y = 25 + self.yp1 - 25 * math.sin(math.radians(self.ang1))
                 self.shoot1 = True
@@ -261,8 +265,25 @@ class Game:
             if self.shoot1:
                 self.bullet1_x += 10 * self.bullet1_dx
                 self.bullet1_y += 10 * self.bullet1_dy
-                
+
             else:
                 self.bullet1_x = -5
                 self.bullet1_y = -5
+
+            if pygame.key.get_pressed()[pygame.K_SEMICOLON]:
+                self.bullet2_x = 25 + self.xp2 + 25 * math.cos(math.radians(self.ang2))
+                self.bullet2_y = 25 + self.yp2 - 25 * math.sin(math.radians(self.ang2))
+                self.shoot2 = True
+                self.bullet2_dx = -math.cos(math.radians(self.ang2))
+                self.bullet2_dy = math.sin(math.radians(self.ang2))
+
+            if self.shoot2:
+                self.bullet2_x += 10 * self.bullet2_dx
+                self.bullet2_y += 10 * self.bullet2_dy
+
+            else:
+                self.bullet2_x = -5
+                self.bullet2_y = -5
+
             bullet1 = pygame.draw.rect(self.screen, WHITE, (self.bullet1_x, self.bullet1_y, 5, 5))
+            bullet2 = pygame.draw.rect(self.screen, WHITE, (self.bullet2_x, self.bullet2_y, 5, 5))

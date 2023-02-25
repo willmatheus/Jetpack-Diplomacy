@@ -28,15 +28,7 @@ bullet_group.add(bullet)
 wall_rect = pygame.Rect(0, 0, 1280, 720)
 
 clock = pygame.time.Clock()
-while True:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
 
-    bullet_group.update()
-    screen.fill((0, 0, 0))
-    bullet_group.draw(screen)
-    bullet.collide_with_wall(wall_rect)
-    pygame.display.update()
-    clock.tick(60)
+#    bullet_group.update()
+#    bullet_group.draw(screen)
+#   bullet.collide_with_wall(wall_rect)
