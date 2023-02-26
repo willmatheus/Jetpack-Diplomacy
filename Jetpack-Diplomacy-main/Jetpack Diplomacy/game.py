@@ -243,7 +243,20 @@ class Game:
             else:
                 self.per2_2_vert = True
 
-            # movement
+            # Player collision bullet
+            # 1 shots 2
+            if (self.bullet1_x >= self.xp2) and (self.bullet1_x <= self.xp2 + 200)\
+                    and (self.bullet1_y >= self.yp2) and (self.bullet1_y <= self.yp2 + 170):
+                self.bullet1_x = -500
+                self.bullet1_y = -500
+
+            # 2 shots 1
+            if (self.bullet2_x >= self.xp1) and (self.bullet2_x <= self.xp1 + 200)\
+                    and (self.bullet2_y >= self.yp1) and (self.bullet2_y <= self.yp1 + 170):
+                self.bullet2_x = -500
+                self.bullet2_y = -500
+
+            # Movement
             if pygame.key.get_pressed()[pygame.K_d] and self.per1_1_left and self.per1_2_left:
                 self.xp1 += p_speed
 
