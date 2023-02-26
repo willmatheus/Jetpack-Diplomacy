@@ -6,6 +6,12 @@ pygame.mixer.init()
 # If True, the game is in loop
 looping = True
 
+# gravity
+gravity = 0.3
+
+# font
+score_font = pygame.font.Font('font/PixeloidMono.ttf', 100)
+
 # Screen
 score_height = 50
 wall_width = 25
@@ -35,17 +41,16 @@ fps = 60
 # Clock
 clk = pygame.time.Clock()
 
-# Controls
-keys = pygame.key.get_pressed()
-
-# shoot time
+# timers
 shoot_t = 10
-
-# sprite bullet
-bullet_img = pygame.image.load("sprites/testeball.png")
+defeat_time = 50
 
 # scenario
 scenario1 = pygame.image.load("assets/kremlingame.jpg")
+
+# optional screens
+player1_wins = pygame.image.load("assets/PLAYER1WINS.jpg")
+player2_wins = pygame.image.load("assets/PLAYER2WINS.jpg")
 
 # Bullet
 speed_bullet = 1
@@ -57,22 +62,24 @@ start_img_menu = pygame.image.load('assets/menu1.jpg')
 # Menu char 1
 char_looping_1 = False
 char_left_img_menu = pygame.image.load('assets/left_menu.jpg')
-lenin = pygame.image.load('sprites/1.png')
-stalin = pygame.image.load('sprites/2.png')
 
 # Menu char 2
 char_looping_2 = False
 char_right_img_menu = pygame.image.load('assets/right_menu.jpg')
+
+# sprites
+lenin = pygame.image.load('sprites/1.png')
+stalin = pygame.image.load('sprites/2.png')
 jfk = pygame.image.load('sprites/3.png')
 ronald = pygame.image.load('sprites/4.png')
+bullet_img = pygame.image.load("sprites/testeball.png")
 
 # gameplay loop
 gameplay_loop = False
-init_players = True
+
+# coordinates
 xp1 = 50
-yp1 = 620
-ang1 = 0
+yp1 = 0
 xp2 = 750
-yp2 = 620
-ang2 = 0
+yp2 = 0
 speed = 10
