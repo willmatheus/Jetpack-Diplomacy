@@ -5,4 +5,3 @@ class Layouts:
     layouts = []
 
     def __init__(self):
-

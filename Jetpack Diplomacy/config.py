@@ -76,3 +76,7 @@ lenin_rect = lenin.get_rect()
 stalin_rect = stalin.get_rect()
 jfk_rect = jfk.get_rect()
 ronald_rect = ronald.get_rect()
+score_p1 = 0
+score_p2 = 0
+p1_wins = pygame.image.load('assets/PLAYER1WINS.jpg')
+p2_wins = pygame.image.load('assets/PLAYER2WINS.jpg')
