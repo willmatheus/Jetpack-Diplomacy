@@ -15,79 +15,54 @@ class Game(pygame.sprite.Sprite):
         self.char_looping_2 = char_looping_2
         self.background = start_img_menu
         self.players = []
+        self.players.append(Player(xp1, yp1, lenin))
+        self.players.append(Player(xp2, yp2, stalin))
+        self.moving_left = False
+        self.moving_right = False
 
     def get_screen(self):
-        self.background = start_img_menu
+        self.background = scenario1
 
     def game_loop(self):
         self.get_screen()
         while looping:
-            self.get_menu()
             self.check_events_game()
             self.draw_sprites()
-
-            for event in pygame.event.get():
-                if event.type == pygame.QUIT:
-                    pygame.quit()
-                    exit()
             pygame.display.update()
             clk.tick(fps)
 
-    def check_events_game(self):
-        if self.gameplay_loop:
-            self.players[0].move()
-            self.players[0].shoot_()
-            self.players[0].update()
+    def check_shoot(self):
 
-    def get_menu(self):
+        if pygame.sprite.spritecollide(self.players[0], self.players[0].bullet_group, False):
+            if self.players[1].alive:
+                self.players[1].kill()
+
+    def check_events_game(self):
+        # move players
+        if self.alive:
+            self.players[0].move(self.moving_left, self.moving_right)
+            if self.players[0].shoot:
+                self.players[0].shoot_()
 
         for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_a:
+                    self.moving_left = True
+                if event.key == pygame.K_d:
+                    self.moving_right = True
+                if event.key == pygame.K_SPACE:
+                    self.players[0].shoot = True
+
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_a:
+                    self.moving_left = False
+                if event.key == pygame.K_d:
+                    self.moving_right = False
+                if event.key == pygame.K_SPACE:
+                    self.players[0].shoot = False
 
             if event.type == pygame.QUIT:
-                pygame.quit()
                 exit()
-
-            # Exit Press Start
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_3 and self.menu_looping:
-                    self.menu_looping = False
-                    self.char_looping_1 = True
-
-                # Choice P1
-                if self.char_looping_1:
-                    self.background = char_left_img_menu
-                    if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                        self.select_char = not self.select_char
-                    # Confirm P1
-                    if event.key == pygame.K_SPACE:
-                        self.char_looping_1 = False
-                        self.char_looping_2 = True
-                        if self.select_char:
-                            self.players.append(Player(xp1, yp1, lenin))
-                        else:
-                            self.players.append(Player(xp1, yp1, stalin))
-
-                # Choice p2
-                if self.char_looping_2:
-                    self.background = char_right_img_menu
-                    if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
-                        self.select_char = not self.select_char
-
-                    # Confirm P2
-                    if event.key == pygame.K_0:
-                        self.gameplay_loop = True
-                        self.char_looping_2 = False
-                        if self.select_char:
-                            self.players.append(Player(xp2, yp2, jfk))
-                        else:
-                            self.players.append(Player(xp2, yp2, ronald))
-
-                        self.background = scenario1
-                        mixer.music.pause()
-                        mixer.init()
-                        mixer.music.load('assets/song_game.mp3')
-                        mixer.music.set_volume(0.4)
-                        mixer.music.play()
 
     def draw_sprites(self):
         screen.blit(self.background, (0, 0))
@@ -106,10 +81,11 @@ class Game(pygame.sprite.Sprite):
             else:
                 pygame.draw.circle(self.screen, WHITE, (1080, 180), 20)
 
-        elif self.gameplay_loop:
             # draw char
-            self.players[0].draw()
-            self.players[1].draw()
-            # draw and update bullets on screen
-            self.players[0].bullet_group.update()
-            self.players[0].bullet_group.draw(self.screen)
+
+        self.players[0].draw()
+        self.players[1].draw()
+        # draw and update bullets on screen
+        self.players[0].bullet_group.update()
+        self.players[0].bullet_group.draw(self.screen)
+        self.players[0].update()

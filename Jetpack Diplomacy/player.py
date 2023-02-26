@@ -7,6 +7,7 @@ class Player(pygame.sprite.Sprite):
     def __init__(self, xp, yp, sprite):
         super().__init__()
         self.score = 0
+        self.speed = speed
         self.xp = xp
         self.yp = yp
         self.sprite = sprite
@@ -19,30 +20,31 @@ class Player(pygame.sprite.Sprite):
         self.rect.center = (xp, yp)
         self.shoot = False
         self.alive = True
-        self.shoot_time = 0
+        self.shoot_cooldown = 0
 
     def draw(self):
         screen.blit(pygame.transform.flip(self.img, self.flip, False), self.rect)
 
     # movement function
-    def move(self):
-        key = pygame.key.get_pressed()
-
-        if key[pygame.K_a]:
-            self.rect.x += -speed
+    def move(self, left, right):
+        if left:
+            self.rect.x += -self.speed
             self.flip = True
             self.direction_player = -1
-        if key[pygame.K_d]:
-            self.rect.x += speed
+        if right:
+            self.rect.x += self.speed
             self.flip = False
             self.direction_player = 1
-    # shoot function
+
+    # shoot function with cooldown
     def shoot_(self):
-        key = pygame.key.get_pressed()
-        if key[pygame.K_SPACE]:
-            self.shoot = True
-    # update bullets
-    def update(self):
-        if self.shoot:
-            bullet = Bullet(self.rect.centerx + (self.rect.size[0]), self.rect.centery, self.direction_player)
+        if self.shoot_cooldown == 0:
+            self.shoot_cooldown = 30
+            bullet = Bullet(self.rect.centerx + (0.2 * self.rect.size[0]*self.direction_player),
+                            self.rect.centery, self.direction_player)
             self.bullet_group.add(bullet)
+
+    # decreases cooldown
+    def update(self):
+        if self.shoot_cooldown > 0:
+            self.shoot_cooldown -= 1

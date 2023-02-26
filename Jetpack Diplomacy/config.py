@@ -38,8 +38,11 @@ clk = pygame.time.Clock()
 # Controls
 keys = pygame.key.get_pressed()
 
+# shoot time
+shoot_t = 10
+
 # sprite bullet
-bullet = pygame.image.load("sprites/testeball.png")
+bullet_img = pygame.image.load("sprites/testeball.png")
 
 # scenario
 scenario1 = pygame.image.load("assets/kremlingame.jpg")
@@ -67,9 +70,9 @@ ronald = pygame.image.load('sprites/4.png')
 gameplay_loop = False
 init_players = True
 xp1 = 50
-yp1 = 520
+yp1 = 620
 ang1 = 0
 xp2 = 750
-yp2 = 520
+yp2 = 620
 ang2 = 0
 speed = 10

@@ -10,3 +10,10 @@ class Bullet(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.center = (x, y)
         self.direction = direction
+
+    def update(self):
+        # move bullet
+        self.rect.x += (self.direction * self.speed)
+        # check if bullet has gone of the screen
+        if self.rect.right < 0 or self.rect.left > screen_width:
+            self.kill()
