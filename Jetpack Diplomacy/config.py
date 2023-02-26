@@ -51,14 +51,14 @@ start_img_menu = pygame.image.load('assets/menu1.jpg')
 # Menu char 1
 char_looping_1 = False
 char_left_img_menu = pygame.image.load('assets/left_menu.jpg')
-lenin = pygame.image.load('assets/LENIN8BITVIRADO.png')
-stalin = pygame.image.load('assets/STALIN8BIT.png')
+lenin = pygame.image.load('assets/lenin_with_jetpack.png')
+stalin = pygame.image.load('assets/stalin_with_jetpack.png')
 
 # Menu char 2
 char_looping_2 = False
 char_right_img_menu = pygame.image.load('assets/right_menu.jpg')
-jfk = pygame.image.load('assets/JFK8BIT.png')
-ronald = pygame.image.load('assets/RONALD8BIT.png')
+jfk = pygame.image.load('assets/jfk_with_jetpack.png')
+ronald = pygame.image.load('assets/ronald_with_jetpack.png')
 
 # gameplay loop
 gameplay_loop = False

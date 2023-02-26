@@ -4,6 +4,13 @@ import obstacles
 from config import *
 from player import Player
 import math
+jetpack = pygame.mixer.Sound('assets/jetpack_sound.wav')
+# pygame.joystick.init()
+# joysticks = [pygame.joystick.Joystick(x) for x in range(pygame.joystick.get_count())]
+# controller1 = pygame.joystick.Joystick(0)
+# controller1.init()
+# controller2 = pygame.joystick.Joystick(1)
+# controller2.init()
 
 
 class Game:
@@ -73,6 +80,10 @@ class Game:
                 pygame.quit()
                 exit()
 
+            if event.type == pygame.KEYUP and event.key == pygame.K_w or event.type == pygame.KEYUP and \
+                    event.key == pygame.K_UP:
+                jetpack.stop()
+
             # Exit Press Start
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_3 and self.menu_looping:
@@ -113,7 +124,7 @@ class Game:
                         mixer.init()
                         mixer.music.load('assets/song_game.mp3')
                         mixer.music.set_volume(0.4)
-                        mixer.music.play()
+                        mixer.music.play(-1)
 
                 if self.gameplay_loop:
                     self.background = scenario1
@@ -149,7 +160,7 @@ class Game:
             if self.yp2 < 560 and self.per2_2_vert:
                 self.yp2 += gravity
 
-            # collision with walls
+            # Collision with walls
             if self.xp1 >= 1070:
                 self.xp1 = 1070
 
@@ -169,79 +180,79 @@ class Game:
                 self.yp2 = 0
 
             # Collision 1
-            if (self.xp1 >= 162 and self.xp1 <= 180) and (self.yp1 >= 0 and self.yp1 <= 320):
+            if (162 <= self.xp1 <= 180) and (0 <= self.yp1 <= 320):
                 self.per1_1_left = False
             else:
                 self.per1_1_left = True
 
-            if (self.xp1 >= 762 and self.xp1 <= 780) and (self.yp1 >= 250 and self.yp1 <= 720):
+            if (762 <= self.xp1 <= 780) and (250 <= self.yp1 <= 720):
                 self.per1_2_left = False
             else:
                 self.per1_2_left = True
 
-            if (self.xp1 >= 258 and self.xp1 <= 270) and (self.yp1 >= 0 and self.yp1 <= 320):
+            if (258 <= self.xp1 <= 270) and (0 <= self.yp1 <= 320):
                 self.per1_1_right = False
             else:
                 self.per1_1_right = True
 
-            if (self.xp1 >= 858 and self.xp1 <= 870) and (self.yp1 >= 250 and self.yp1 <= 720):
+            if (858 <= self.xp1 <= 870) and (250 <= self.yp1 <= 720):
                 self.per1_2_right = False
             else:
                 self.per1_2_right = True
 
-            if (self.xp1 >= 192 and self.xp1 <= 270) and (self.yp1 >= 310 and self.yp1 <= 330):
+            if (192 <= self.xp1 <= 270) and (310 <= self.yp1 <= 330):
                 self.per1_1_vert = False
             else:
                 self.per1_1_vert = True
-            if (self.xp1 >= 770 and self.xp1 <= 880) and (self.yp1 >= 245 and self.yp1 <= 275):
+            if (770 <= self.xp1 <= 880) and (245 <= self.yp1 <= 275):
                 self.per1_2_vert = False
             else:
                 self.per1_2_vert = True
 
             # Ball Collision 1
-            if (self.bullet1_x >= 300 and self.bullet1_x <= 320) and (self.bullet1_y >= 0 and self.bullet1_y <= 320):
+            if (300 <= self.bullet1_x <= 320) and (0 <= self.bullet1_y <= 320):
                 self.bullet1_x = -500
                 self.bullet1_y = -500
 
-            if (self.bullet1_x >= 900 and self.bullet1_x <= 920) and (self.bullet1_y >= 250 and self.bullet1_y <= 720):
+            if (900 <= self.bullet1_x <= 920) and (250 <= self.bullet1_y <= 720):
                 self.bullet1_x = -500
                 self.bullet1_y = -500
 
-            if (self.bullet2_x >= 300 and self.bullet2_x <= 320) and (self.bullet2_y >= 0 and self.bullet2_y <= 320):
+            if (300 <= self.bullet2_x <= 320) and (0 <= self.bullet2_y <= 320):
                 self.bullet2_x = -500
                 self.bullet2_y = -500
 
-            if (self.bullet2_x >= 900 and self.bullet2_x <= 920) and (self.bullet2_y >= 250 and self.bullet2_y <= 720):
+            if (900 <= self.bullet2_x <= 920) and (250 <= self.bullet2_y <= 720):
                 self.bullet2_x = -500
                 self.bullet2_y = -500
 
             # Collision 2
-            if (self.xp2 >= 162 and self.xp2 <= 180) and (self.yp2 >= 0 and self.yp2 <= 320):
+            if (162 <= self.xp2 <= 180) and (0 <= self.yp2 <= 320):
                 self.per2_1_left = False
             else:
                 self.per2_1_left = True
 
-            if (self.xp2 >= 762 and self.xp2 <= 780) and (self.yp2 >= 250 and self.yp2 <= 720):
+            if (762 <= self.xp2 <= 780) and (250 <= self.yp2 <= 720):
                 self.per2_2_left = False
             else:
                 self.per2_2_left = True
 
-            if (self.xp2 >= 258 and self.xp2 <= 270) and (self.yp2 >= 0 and self.yp2 <= 320):
+            if (258 <= self.xp2 <= 270) and (0 <= self.yp2 <= 320):
                 self.per2_1_right = False
             else:
                 self.per2_1_right = True
 
-            if (self.xp2 >= 858 and self.xp2 <= 870) and (self.yp2 >= 250 and self.yp2 <= 720):
+            if (858 <= self.xp2 <= 870) and (250 <= self.yp2 <= 720):
                 self.per2_2_right = False
             else:
                 self.per2_2_right = True
 
-            if (self.xp2 >= 192 and self.xp2 <= 270) and (self.yp2 >= 310 and self.yp2 <= 330):
+            if (192 <= self.xp2 <= 270) and (310 <= self.yp2 <= 330):
                 self.per2_1_vert = False
             else:
                 self.per2_1_vert = True
 
-            if (self.xp2 >= 770 and self.xp2 <= 880) and (self.yp2 >= 245 and self.yp2 <= 275):
+            if (770 <= self.xp2 <= 880) and (245 <= self.yp2 <= 275):
                 self.per2_2_vert = False
             else:
                 self.per2_2_vert = True
@@ -250,6 +261,14 @@ class Game:
             # 1 shoots 2
             if (self.bullet1_x >= self.xp2) and (self.bullet1_x <= self.xp2 + 200)\
                     and (self.bullet1_y >= self.yp2) and (self.bullet1_y <= self.yp2 + 170):
+                death_sfx = pygame.mixer.Sound('assets/death.wav')
+                death_sfx.play()
+                self.xp1 = xp1
+                self.yp1 = yp1
+                self.xp2 = xp2
+                self.yp2 = yp2
+                self.ang1 = ang1
+                self.ang2 = ang2
                 self.score_p1 += 1
                 self.bullet1_x = -500
                 self.bullet1_y = -500
@@ -257,16 +276,30 @@ class Game:
                 if self.score_p1 == 3:
                     self.gameplay_loop = False
                     self.win_loop1 = True
+                    mixer.music.pause()
+                    mixer.music.load('assets/soviet_union_1.wav')
+                    mixer.music.play(-1)
 
             # 2 shoots 1
             if (self.bullet2_x >= self.xp1) and (self.bullet2_x <= self.xp1 + 200)\
                     and (self.bullet2_y >= self.yp1) and (self.bullet2_y <= self.yp1 + 170):
+                death_sfx = pygame.mixer.Sound('assets/death.wav')
+                death_sfx.play()
+                self.xp1 = xp1
+                self.yp1 = yp1
+                self.xp2 = xp2
+                self.yp2 = yp2
+                self.ang1 = ang1
+                self.ang2 = ang2
                 self.score_p2 += 1
                 self.bullet2_x = -500
                 self.bullet2_y = -500
                 if self.score_p2 == 3:
                     self.gameplay_loop = False
                     self.win_loop2 = True
+                    mixer.music.pause()
+                    mixer.music.load('assets/america_wins.mp3')
+                    mixer.music.play(-1)
 
             # Movement
             if pygame.key.get_pressed()[pygame.K_d] and self.per1_1_left and self.per1_2_left:
@@ -296,10 +329,15 @@ class Game:
             # jetpack
             if pygame.key.get_pressed()[pygame.K_w] and self.per1_1_vert:
                 self.yp1 -= 15
+                # jetpack = pygame.mixer.Sound('assets/jetpack_sound.wav')
+                jetpack.play()
             if pygame.key.get_pressed()[pygame.K_UP] and self.per2_1_vert:
                 self.yp2 -= 15
-
+                # jetpack = pygame.mixer.Sound('assets/jetpack_sound.wav')
+                jetpack.play()
             if pygame.key.get_pressed()[pygame.K_r]:
+                bullet_sfx = pygame.mixer.Sound('assets/tiro-8bit.wav')
+                bullet_sfx.play()
                 self.bullet1_x = 25 + self.xp1 + 25 * math.cos(math.radians(self.ang1))
                 self.bullet1_y = 25 + self.yp1 - 25 * math.sin(math.radians(self.ang1))
                 self.shoot1 = True
@@ -315,6 +353,8 @@ class Game:
                 self.bullet1_y = -5
 
             if pygame.key.get_pressed()[pygame.K_SEMICOLON]:
+                bullet_sfx = pygame.mixer.Sound('assets/tiro-8bit.wav')
+                bullet_sfx.play()
                 self.bullet2_x = 25 + self.xp2 + 25 * math.cos(math.radians(self.ang2))
                 self.bullet2_y = 25 + self.yp2 - 25 * math.sin(math.radians(self.ang2))
                 self.shoot2 = True
@@ -333,18 +373,8 @@ class Game:
             bullet2 = pygame.draw.rect(self.screen, WHITE, (self.bullet2_x, self.bullet2_y, 5, 5))
 
         elif self.win_loop1:
-            mixer.music.stop()
-            mixer.init()
-            mixer.music.load('assets/soviet_union.mp3')
-            mixer.music.set_volume(0.4)
-            mixer.music.play()
             screen.blit(p1_wins, (0, 0))
             pygame.display.update()
         elif self.win_loop2:
-            mixer.music.stop()
-            mixer.init()
-            mixer.music.load('assets/america_wins.mp3')
-            mixer.music.set_volume(0.4)
-            mixer.music.play()
             screen.blit(p2_wins, (0, 0))
             pygame.display.update()
