@@ -83,3 +83,5 @@ yp1 = 0
 xp2 = 750
 yp2 = 0
 speed = 10
+
+jetpack = pygame.mixer.Sound('assets/jetpack_sound.wav')

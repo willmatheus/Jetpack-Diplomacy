@@ -26,6 +26,8 @@ class Game(pygame.sprite.Sprite):
         self.moving_left = False
         self.moving_right = False
         self.jump = False
+        self.win_loop1 = False
+        self.win_loop2 = False
         pass
 
     def get_screen(self):
@@ -96,6 +98,11 @@ class Game(pygame.sprite.Sprite):
                             self.players.append(Player(xp2, yp2, jfk))
                         else:
                             self.players.append(Player(xp2, yp2, ronald))
+                        mixer.music.pause()
+                        mixer.init()
+                        mixer.music.load('assets/song_game.mp3')
+                        mixer.music.set_volume(0.4)
+                        mixer.music.play(-1)
 
     def check_events_game(self):
         # move players
@@ -113,8 +120,15 @@ class Game(pygame.sprite.Sprite):
                     self.moving_right = True
                 if event.key == pygame.K_SPACE:
                     self.players[0].shoot = True
+                    bullet_sfx = pygame.mixer.Sound('assets/tiro-8bit.wav')
+                    bullet_sfx.play()
+                if event.key == pygame.K_SEMICOLON:
+                    self.players[1].shoot = True
+                    bullet_sfx = pygame.mixer.Sound('assets/tiro-8bit.wav')
+                    bullet_sfx.play()
                 if event.key == pygame.K_w:
                     self.jump = True
+                    jetpack.play()
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a:
@@ -123,8 +137,11 @@ class Game(pygame.sprite.Sprite):
                     self.moving_right = False
                 if event.key == pygame.K_SPACE:
                     self.players[0].shoot = False
+                if event.key == pygame.K_SEMICOLON:
+                    self.players[1].shoot = False
                 if event.key == pygame.K_w:
                     self.jump = False
+                    jetpack.stop()
 
             if event.type == pygame.QUIT:
                 exit()
@@ -139,6 +156,16 @@ class Game(pygame.sprite.Sprite):
                 player1.hit = True
                 player2.stop = True
                 player2.score += 1
+                death_sfx = pygame.mixer.Sound('assets/death.wav')
+                death_sfx.play()
+            if player2.score == 3:
+                mixer.music.pause()
+                mixer.music.load('assets/america_wins.mp3')
+                mixer.music.play(-1)
+            elif player1.score == 3:
+                mixer.music.pause()
+                mixer.music.load('assets/soviet_union_1.wav')
+                mixer.music.play(-1)
 
     def player_collision(self, player):
         for wall in self.walls:
@@ -198,5 +225,3 @@ class Game(pygame.sprite.Sprite):
                 screen.blit(player1_wins, (0, 0))
             else:
                 screen.blit(player2_wins, (0, 0))
-
-
