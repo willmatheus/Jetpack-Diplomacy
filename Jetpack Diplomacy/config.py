@@ -6,6 +6,12 @@ pygame.mixer.init()
 # If True, the game is in loop
 looping = True
 
+# gravity
+gravity = 0.3
+
+# font
+score_font = pygame.font.Font('font/PixeloidMono.ttf', 100)
+
 # Screen
 score_height = 50
 wall_width = 25
@@ -35,11 +41,16 @@ fps = 60
 # Clock
 clk = pygame.time.Clock()
 
-# Controls
-keys = pygame.key.get_pressed()
+# timers
+shoot_t = 10
+defeat_time = 50
 
-# test scenario
+# scenario
 scenario1 = pygame.image.load("assets/kremlingame.jpg")
+
+# optional screens
+player1_wins = pygame.image.load("assets/PLAYER1WINS.jpg")
+player2_wins = pygame.image.load("assets/PLAYER2WINS.jpg")
 
 # Bullet
 speed_bullet = 1
@@ -51,32 +62,26 @@ start_img_menu = pygame.image.load('assets/menu1.jpg')
 # Menu char 1
 char_looping_1 = False
 char_left_img_menu = pygame.image.load('assets/left_menu.jpg')
-lenin = pygame.image.load('assets/lenin_with_jetpack.png')
-stalin = pygame.image.load('assets/stalin_with_jetpack.png')
 
 # Menu char 2
 char_looping_2 = False
 char_right_img_menu = pygame.image.load('assets/right_menu.jpg')
+
+# sprites
+lenin = pygame.image.load('assets/lenin_with_jetpack.png')
+stalin = pygame.image.load('assets/stalin_with_jetpack.png')
 jfk = pygame.image.load('assets/jfk_with_jetpack.png')
 ronald = pygame.image.load('assets/ronald_with_jetpack.png')
+bullet_img = pygame.image.load("assets/testeball.png")
 
 # gameplay loop
 gameplay_loop = False
-init_players = True
+
+# coordinates
 xp1 = 50
-yp1 = 50
-ang1 = 0
-xp2 = 1000
-yp2 = 50
-ang2 = 0
-p_speed = 7
-gravity = 4
-wall_rect = pygame.Rect(0, 0, 1280, 720)
-lenin_rect = lenin.get_rect()
-stalin_rect = stalin.get_rect()
-jfk_rect = jfk.get_rect()
-ronald_rect = ronald.get_rect()
-score_p1 = 0
-score_p2 = 0
-p1_wins = pygame.image.load('assets/PLAYER1WINS.jpg')
-p2_wins = pygame.image.load('assets/PLAYER2WINS.jpg')
+yp1 = 0
+xp2 = 750
+yp2 = 0
+speed = 10
+
+jetpack = pygame.mixer.Sound('assets/jetpack_sound.wav')
