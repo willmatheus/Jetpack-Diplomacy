@@ -33,7 +33,7 @@ DARKER_GREEN = (31, 61, 12)
 DARKER_BLUE = (11, 11, 69)
 
 # game
-max_score = 3
+max_score = 5
 
 # fps
 fps = 60
@@ -68,11 +68,11 @@ char_looping_2 = False
 char_right_img_menu = pygame.image.load('assets/right_menu.jpg')
 
 # sprites
-lenin = pygame.image.load('sprites/1.png')
-stalin = pygame.image.load('sprites/2.png')
-jfk = pygame.image.load('sprites/3.png')
-ronald = pygame.image.load('sprites/4.png')
-bullet_img = pygame.image.load("sprites/testeball.png")
+lenin = pygame.image.load('assets/lenin_with_jetpack.png')
+stalin = pygame.image.load('assets/stalin_with_jetpack.png')
+jfk = pygame.image.load('assets/jfk_with_jetpack.png')
+ronald = pygame.image.load('assets/ronald_with_jetpack.png')
+bullet_img = pygame.image.load("assets/testeball.png")
 
 # gameplay loop
 gameplay_loop = False

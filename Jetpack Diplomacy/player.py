@@ -63,14 +63,10 @@ class Player(pygame.sprite.Sprite):
                             self.rect.centery, self.direction_player)
             self.bullet_group.add(bullet)
             self.bullet_list.append(bullet)
+            bullet_sfx = pygame.mixer.Sound('assets/tiro-8bit.wav')
+            bullet_sfx.play()
 
     # decreases cooldown
     def update(self):
         if self.shoot_cooldown > 0:
             self.shoot_cooldown -= 1
-
-    def reposition(self):
-        self.stop = False
-        self.hit = False
-        self.xp = xp1
-        self.yp = yp1

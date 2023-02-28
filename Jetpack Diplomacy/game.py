@@ -1,5 +1,3 @@
-import pygame
-
 from player import Player
 from layouts import Layouts
 from pygame import mixer
@@ -26,12 +24,11 @@ class Game(pygame.sprite.Sprite):
         self.moving_left = False
         self.moving_right = False
         self.jump = False
-        self.win_loop1 = False
-        self.win_loop2 = False
+        self.check = False
         pass
 
     def get_screen(self):
-        self.background = start_img_menu
+        self.screen = self.background
 
     def game_loop(self):
         self.get_screen()
@@ -50,7 +47,6 @@ class Game(pygame.sprite.Sprite):
                 self.check_events_game()
                 self.draw_sprites_game()
                 self.check_winner(self.players[0], self.players[1])
-
             pygame.display.update()
             clk.tick(fps)
 
@@ -64,7 +60,7 @@ class Game(pygame.sprite.Sprite):
 
             # Exit Press Start
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_3 and self.menu_looping:
+                if event.key == pygame.K_3:
                     self.menu_looping = False
                     self.char_looping_1 = True
 
@@ -120,15 +116,13 @@ class Game(pygame.sprite.Sprite):
                     self.moving_right = True
                 if event.key == pygame.K_SPACE:
                     self.players[0].shoot = True
-                    bullet_sfx = pygame.mixer.Sound('assets/tiro-8bit.wav')
-                    bullet_sfx.play()
                 if event.key == pygame.K_SEMICOLON:
                     self.players[1].shoot = True
-                    bullet_sfx = pygame.mixer.Sound('assets/tiro-8bit.wav')
-                    bullet_sfx.play()
                 if event.key == pygame.K_w:
                     self.jump = True
                     jetpack.play()
+                if event.key == pygame.K_q:
+                    self.gameplay_loop = False
 
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_a:
@@ -149,24 +143,18 @@ class Game(pygame.sprite.Sprite):
     def shoot_collision(self, player1, player2):
         for ball in player2.bullet_list:
             if pygame.sprite.collide_mask(ball, player1):
+                self.check = True
                 player1.bullet_list.clear()
                 player2.bullet_list.clear()
                 player1.bullet_group.empty()
+
                 player2.bullet_group.empty()
                 player1.hit = True
                 player2.stop = True
                 player2.score += 1
                 death_sfx = pygame.mixer.Sound('assets/death.wav')
                 death_sfx.play()
-            if player2.score == 3:
-                mixer.music.pause()
-                mixer.music.load('assets/america_wins.mp3')
-                mixer.music.play(-1)
-            elif player1.score == 3:
-                mixer.music.pause()
-                mixer.music.load('assets/soviet_union_1.wav')
-                mixer.music.play(-1)
-
+        
     def player_collision(self, player):
         for wall in self.walls:
             if pygame.sprite.collide_mask(player, wall):
@@ -185,7 +173,7 @@ class Game(pygame.sprite.Sprite):
                 bullet.kill()
 
     def draw_sprites_menu(self):
-        screen.blit(self.background, (0, 0))
+        self.screen.blit(self.background, (0, 0))
 
         # draw char picker 1
         if self.char_looping_1:
@@ -218,10 +206,20 @@ class Game(pygame.sprite.Sprite):
         if player1.score < max_score and player2.score < max_score:
             score_text_1 = score_font.render(str(player1.score), True, RED)
             score_text_2 = score_font.render(str(player2.score), True, BLUE)
-            screen.blit(score_text_1, score_text_1_rect)
-            screen.blit(score_text_2, score_text_2_rect)
+            self.screen.blit(score_text_1, score_text_1_rect)
+            self.screen.blit(score_text_2, score_text_2_rect)
         else:
             if player2.score < player1.score:
-                screen.blit(player1_wins, (0, 0))
+                self.screen.blit(player1_wins, (0, 0))
+                if self.victory_can_play:
+                    mixer.music.pause()
+                    mixer.music.load('assets/soviet_union_1.wav')
+                    mixer.music.play(-1)
+                self.victory_can_play = False
             else:
-                screen.blit(player2_wins, (0, 0))
+                self.screen.blit(player2_wins, (0, 0))
+                if self.victory_can_play:
+                    mixer.music.pause()
+                    mixer.music.load('assets/america_wins.mp3')
+                    mixer.music.play(-1)
+                self.victory_can_play = False
